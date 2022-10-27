@@ -171,8 +171,7 @@ checksum = "56254986775e3233ffa9c4d7d3faaf6d36a2c09d30b20687e9f88bc8bafc16c8"
 [[package]]
 name = "dprint-core"
 version = "0.63.3"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7227b28d24aafee21ff72512336c797fa00bb3ea803186b1b105a68abc97660b"
+source = "git+https://github.com/waltarix/dprint?tag=core/0.63.3#37c98e485d402c5ae22cf739cb4b9d3bb89bbfde"
 dependencies = [
  "anyhow",
  "bumpalo",
