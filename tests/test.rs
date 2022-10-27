@@ -39,7 +39,7 @@ fn test_performance() {
 #[test]
 fn test_specs() {
   //debug_here!();
-  let mut global_config = GlobalConfiguration {
+  let global_config = GlobalConfiguration {
     // for the tests only because a higher indent width increases the likelihood of problems
     indent_width: Some(4),
     ..Default::default()
