@@ -209,14 +209,14 @@ dependencies = [
 [[package]]
 name = "dprint-core"
 version = "0.59.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "84600c297cc99fc088a9a916286d71915c988fa3a6f1bbc994ad9b93dde80c03"
+source = "git+https://github.com/waltarix/dprint?tag=0.32.2-custom#e31886409567edb5f5090ebd98b2c4f8a6ec76c4"
 dependencies = [
  "anyhow",
  "bumpalo",
  "indexmap",
  "rustc-hash",
  "serde",
+ "unicode-width",
 ]
 
 [[package]]
@@ -1094,9 +1094,9 @@ dependencies = [
 
 [[package]]
 name = "unicode-width"
-version = "0.1.9"
+version = "0.1.10"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "3ed742d4ea2bd1176e236172c8429aaf54486e7ac098db29ffe6529e0ce50973"
+checksum = "c0edd1e5b14653f783770bce4a4dabb4a5108a5370a5f5d8cfe8710c361f6c8b"
 
 [[package]]
 name = "unreachable"
