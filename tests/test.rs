@@ -39,8 +39,10 @@ fn test_performance() {
 #[test]
 fn test_specs() {
   //debug_here!();
-  let mut global_config = GlobalConfiguration::default();
-  global_config.indent_width = Some(4); // for the tests only because a higher indent width increases the likelihood of problems
+  let global_config = GlobalConfiguration {
+    indent_width: Some(4), // for the tests only because a higher indent width increases the likelihood of problems
+    ..GlobalConfiguration::default()
+  };
 
   run_specs(
     &PathBuf::from("./tests/specs"),
@@ -50,7 +52,7 @@ fn test_specs() {
       format_twice: true,
     },
     {
-      let global_config = global_config.clone();
+      let global_config = global_config;
       move |file_name, file_text, spec_config| {
         let config_result = resolve_config(parse_config_key_map(spec_config), &global_config);
         ensure_no_diagnostics(&config_result.diagnostics);

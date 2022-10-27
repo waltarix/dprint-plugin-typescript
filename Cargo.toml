@@ -19,6 +19,8 @@ lto = true
 debug-assertions = false
 overflow-checks = false
 panic = "abort"
+strip = true
+codegen-units = 1
 
 [features]
 wasm = ["serde_json", "dprint-core/wasm"]
@@ -27,7 +29,7 @@ tracing = ["dprint-core/tracing"]
 [dependencies]
 anyhow = "1.0.64"
 deno_ast = { version = "0.23.2", features = ["view"] }
-dprint-core = { version = "0.60.0", features = ["formatting"] }
+dprint-core = { git = "https://github.com/waltarix/dprint", tag = "0.34.1-custom", features = ["formatting"] }
 rustc-hash = "1.1.0"
 serde = { version = "1.0.144", features = ["derive"] }
 serde_json = { version = "1.0", optional = true }
