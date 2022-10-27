@@ -18,7 +18,7 @@ pub enum PreferHanging {
 generate_str_to_from![PreferHanging, [Never, "never"], [OnlySingleItem, "onlySingleItem"], [Always, "always"]];
 
 /// Semi colon possibilities.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum SemiColons {
   /// Always uses semi-colons where applicable.
@@ -44,7 +44,7 @@ impl SemiColons {
 generate_str_to_from![SemiColons, [Always, "always"], [Prefer, "prefer"], [Asi, "asi"]];
 
 /// Trailing comma possibilities.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum TrailingCommas {
   /// Trailing commas should not be used.
@@ -58,7 +58,7 @@ pub enum TrailingCommas {
 generate_str_to_from![TrailingCommas, [Always, "always"], [Never, "never"], [OnlyMultiLine, "onlyMultiLine"]];
 
 /// Where to place the opening brace.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum BracePosition {
   /// Maintains the brace being on the next line or the same line.
@@ -80,7 +80,7 @@ generate_str_to_from![
 ];
 
 /// How to space members.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum MemberSpacing {
   /// Maintains whether a newline or blankline is used.
@@ -96,7 +96,7 @@ pub enum MemberSpacing {
 generate_str_to_from![MemberSpacing, [Maintain, "maintain"], [BlankLine, "blankLine"], [NewLine, "newLine"]];
 
 /// Where to place the next control flow within a control flow statement.
-#[derive(Debug, Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum NextControlFlowPosition {
   /// Maintains the next control flow being on the next line or the same line.
@@ -110,7 +110,7 @@ pub enum NextControlFlowPosition {
 generate_str_to_from![NextControlFlowPosition, [Maintain, "maintain"], [SameLine, "sameLine"], [NextLine, "nextLine"]];
 
 /// Where to place the operator for expressions that span multiple lines.
-#[derive(Debug, Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Debug, Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum OperatorPosition {
   /// Maintains the operator being on the next line or the same line.
@@ -124,7 +124,7 @@ pub enum OperatorPosition {
 generate_str_to_from![OperatorPosition, [Maintain, "maintain"], [SameLine, "sameLine"], [NextLine, "nextLine"]];
 
 /// Where to place a node that could be on the same line or next line.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum SameOrNextLinePosition {
   /// Maintains the position of the expression.
@@ -138,7 +138,7 @@ pub enum SameOrNextLinePosition {
 generate_str_to_from![SameOrNextLinePosition, [Maintain, "maintain"], [SameLine, "sameLine"], [NextLine, "nextLine"]];
 
 /// If braces should be used or not in certain scenarios.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum UseBraces {
   /// Uses braces if they're used. Doesn't use braces if they're not used.
@@ -160,7 +160,7 @@ generate_str_to_from![
 ];
 
 /// Whether to use parentheses around a single parameter in an arrow function.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum UseParentheses {
   /// Maintains the current state of the parentheses.
@@ -174,7 +174,7 @@ pub enum UseParentheses {
 generate_str_to_from![UseParentheses, [Maintain, "maintain"], [Force, "force"], [PreferNone, "preferNone"]];
 
 /// How to decide to use single or double quotes.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum QuoteStyle {
   /// Always use double quotes.
@@ -208,7 +208,7 @@ generate_str_to_from![
 ];
 
 /// Whether to use single or double quotes for JSX attributes.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum JsxQuoteStyle {
   /// Prefer using double quotes except in scenarios where the string
@@ -222,7 +222,7 @@ pub enum JsxQuoteStyle {
 generate_str_to_from![JsxQuoteStyle, [PreferDouble, "preferDouble"], [PreferSingle, "preferSingle"]];
 
 /// Behaviour to use for quotes on property names.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum QuoteProps {
   /// Preserve quotes around property names.
@@ -235,7 +235,7 @@ generate_str_to_from![QuoteProps, [Preserve, "preserve"], [AsNeeded, "asNeeded"]
 
 /// Whether to surround a JSX element or fragment with parentheses
 /// when it's the top JSX node and it spans multiple lines.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum JsxMultiLineParens {
   /// Never wrap JSX with parentheses.
@@ -250,7 +250,7 @@ pub enum JsxMultiLineParens {
 generate_str_to_from![JsxMultiLineParens, [Never, "never"], [Prefer, "prefer"], [Always, "always"]];
 
 /// Whether to use semi-colons or commas.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum SemiColonOrComma {
   /// Use semi colons (default).
@@ -262,7 +262,7 @@ pub enum SemiColonOrComma {
 generate_str_to_from![SemiColonOrComma, [SemiColon, "semiColon"], [Comma, "comma"]];
 
 /// The kind of sort ordering to use.
-#[derive(Clone, PartialEq, Copy, Serialize, Deserialize)]
+#[derive(Clone, PartialEq, Eq, Copy, Serialize, Deserialize)]
 #[serde(rename_all = "camelCase")]
 pub enum SortOrder {
   /// Maintains the current ordering.
