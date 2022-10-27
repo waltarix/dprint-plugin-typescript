@@ -1859,9 +1859,7 @@ fn gen_assignment_expr<'a>(node: &'a AssignExpr, context: &mut Context<'a>) -> P
             prefer_hanging: false,
             force_use_new_lines,
             allow_blank_lines: false,
-            single_line_space_at_start: false,
-            single_line_space_at_end: false,
-            single_line_separator: Signal::SpaceOrNewLine.into(),
+            single_line_options: ir_helpers::SingleLineOptions::same_line_maybe_space_separated(),
             indent_width,
             multi_line_options: ir_helpers::MultiLineOptions::same_line_start_hanging_indent(),
             force_possible_newline_at_start: false,
@@ -2037,13 +2035,11 @@ fn gen_binary_expr<'a>(node: &'a BinExpr, context: &mut Context<'a>) -> PrintIte
         prefer_hanging: false,
         force_use_new_lines,
         allow_blank_lines: false,
-        single_line_space_at_start: false,
-        single_line_space_at_end: false,
-        single_line_separator: if use_space_surrounding_operator {
+        single_line_options: ir_helpers::SingleLineOptions::separated_same_line(if use_space_surrounding_operator {
           Signal::SpaceOrNewLine.into()
         } else {
           PrintItems::new()
-        },
+        }),
         indent_width,
         multi_line_options,
         force_possible_newline_at_start: false,
@@ -2818,8 +2814,7 @@ fn gen_sequence_expr<'a>(node: &'a SeqExpr, context: &mut Context<'a>) -> PrintI
       force_use_new_lines: false,
       allow_blank_lines: false,
       separator: TrailingCommas::Never.into(),
-      single_line_space_at_start: false,
-      single_line_space_at_end: false,
+      single_line_options: ir_helpers::SingleLineOptions::same_line_maybe_space_separated(),
       custom_single_line_separator: None,
       multi_line_options: ir_helpers::MultiLineOptions::same_line_start_hanging_indent(),
       force_possible_newline_at_start: false,
@@ -3683,8 +3678,7 @@ fn gen_jsx_opening_element<'a>(node: &'a JSXOpeningElement, context: &mut Contex
         force_use_new_lines,
         allow_blank_lines: false,
         separator: Separator::none(),
-        single_line_space_at_start: true,
-        single_line_space_at_end: false,
+        single_line_options: ir_helpers::SingleLineOptions::separated_line_starting_with_space(),
         custom_single_line_separator: None,
         multi_line_options,
         force_possible_newline_at_start: false,
@@ -4639,9 +4633,7 @@ fn gen_for_stmt<'a>(node: &'a ForStmt, context: &mut Context<'a>) -> PrintItems 
           prefer_hanging: context.config.for_statement_prefer_hanging,
           force_use_new_lines,
           allow_blank_lines: false,
-          single_line_space_at_start: false,
-          single_line_space_at_end: false,
-          single_line_separator: separator_after_semi_colons.into(),
+          single_line_options: ir_helpers::SingleLineOptions::separated_same_line(separator_after_semi_colons.into()),
           indent_width: context.config.indent_width,
           multi_line_options: ir_helpers::MultiLineOptions::same_line_no_indent(),
           force_possible_newline_at_start: false,
@@ -5175,8 +5167,7 @@ fn gen_var_decl<'a>(node: &'a VarDecl, context: &mut Context<'a>) -> PrintItems 
         force_use_new_lines,
         allow_blank_lines: false,
         separator: TrailingCommas::Never.into(),
-        single_line_space_at_start: false,
-        single_line_space_at_end: false,
+        single_line_options: ir_helpers::SingleLineOptions::same_line_maybe_space_separated(),
         custom_single_line_separator: None,
         multi_line_options: ir_helpers::MultiLineOptions::same_line_start_hanging_indent(),
         force_possible_newline_at_start: false,
@@ -5913,8 +5904,7 @@ fn gen_type_parameters<'a>(node: TypeParamNode<'a>, context: &mut Context<'a>) -
       force_use_new_lines,
       allow_blank_lines: false,
       separator: get_trailing_commas(&node, context).into(),
-      single_line_space_at_start: false,
-      single_line_space_at_end: false,
+      single_line_options: ir_helpers::SingleLineOptions::same_line_maybe_space_separated(),
       custom_single_line_separator: None,
       multi_line_options: ir_helpers::MultiLineOptions::surround_newlines_indented(),
       force_possible_newline_at_start: false,
@@ -6105,9 +6095,7 @@ fn gen_union_or_intersection_type<'a>(node: UnionOrIntersectionType<'a>, context
       prefer_hanging,
       force_use_new_lines,
       allow_blank_lines: false,
-      single_line_space_at_start: false,
-      single_line_space_at_end: false,
-      single_line_separator: Signal::SpaceOrNewLine.into(),
+      single_line_options: ir_helpers::SingleLineOptions::same_line_maybe_space_separated(),
       indent_width,
       multi_line_options,
       force_possible_newline_at_start: false,
@@ -6664,8 +6652,11 @@ fn gen_array_like_nodes<'a>(opts: GenArrayLikeNodesOptions<'a>, context: &mut Co
           force_use_new_lines,
           allow_blank_lines: true,
           separator: trailing_commas.into(),
-          single_line_space_at_start: space_around,
-          single_line_space_at_end: space_around,
+          single_line_options: if space_around {
+            ir_helpers::SingleLineOptions::surrounded_line()
+          } else {
+            ir_helpers::SingleLineOptions::same_line_maybe_space_separated()
+          },
           custom_single_line_separator: None,
           multi_line_options: ir_helpers::MultiLineOptions::surround_newlines_indented(),
           force_possible_newline_at_start: false,
@@ -7137,8 +7128,11 @@ where
             force_use_new_lines,
             allow_blank_lines: false,
             separator: trailing_commas.into(),
-            single_line_space_at_start: space_around,
-            single_line_space_at_end: space_around,
+            single_line_options: if space_around {
+              ir_helpers::SingleLineOptions::surrounded_line()
+            } else {
+              ir_helpers::SingleLineOptions::same_line_maybe_space_separated()
+            },
             custom_single_line_separator: None,
             multi_line_options: if prefer_single_item_hanging {
               MultiLineOptions::maintain_line_breaks()
@@ -7367,8 +7361,7 @@ struct GenSeparatedValuesParams<'a> {
   force_use_new_lines: bool,
   allow_blank_lines: bool,
   separator: Separator,
-  single_line_space_at_start: bool,
-  single_line_space_at_end: bool,
+  single_line_options: ir_helpers::SingleLineOptions,
   custom_single_line_separator: Option<PrintItems>,
   multi_line_options: ir_helpers::MultiLineOptions,
   force_possible_newline_at_start: bool,
@@ -7497,9 +7490,11 @@ fn gen_separated_values_with_result<'a>(opts: GenSeparatedValuesParams<'a>, cont
       prefer_hanging: opts.prefer_hanging,
       force_use_new_lines: opts.force_use_new_lines,
       allow_blank_lines: opts.allow_blank_lines,
-      single_line_space_at_start: opts.single_line_space_at_start,
-      single_line_space_at_end: opts.single_line_space_at_end,
-      single_line_separator: opts.custom_single_line_separator.unwrap_or_else(|| Signal::SpaceOrNewLine.into()),
+      single_line_options: ir_helpers::SingleLineOptions {
+        space_at_start: opts.single_line_options.space_at_start,
+        space_at_end: opts.single_line_options.space_at_end,
+        separator: opts.custom_single_line_separator.unwrap_or_else(|| Signal::SpaceOrNewLine.into()),
+      },
       indent_width,
       multi_line_options: opts.multi_line_options,
       force_possible_newline_at_start: opts.force_possible_newline_at_start,
@@ -7746,8 +7741,7 @@ fn gen_extends_or_implements<'a>(opts: GenExtendsOrImplementsOptions<'a>, contex
         force_use_new_lines: false,
         allow_blank_lines: false,
         separator: TrailingCommas::Never.into(),
-        single_line_space_at_start: true,
-        single_line_space_at_end: false,
+        single_line_options: ir_helpers::SingleLineOptions::separated_line_starting_with_space(),
         custom_single_line_separator: None,
         multi_line_options: ir_helpers::MultiLineOptions::new_line_start(),
         force_possible_newline_at_start: false,
@@ -7802,8 +7796,11 @@ fn gen_object_like_node<'a>(opts: GenObjectLikeNodeOptions<'a>, context: &mut Co
             force_use_new_lines: force_multi_line,
             allow_blank_lines: opts.allow_blank_lines,
             separator: opts.separator,
-            single_line_space_at_start: opts.surround_single_line_with_spaces,
-            single_line_space_at_end: opts.surround_single_line_with_spaces,
+            single_line_options: if opts.surround_single_line_with_spaces {
+              ir_helpers::SingleLineOptions::surrounded_line()
+            } else {
+              ir_helpers::SingleLineOptions::same_line_maybe_space_separated()
+            },
             custom_single_line_separator: None,
             multi_line_options: ir_helpers::MultiLineOptions::surround_newlines_indented(),
             force_possible_newline_at_start: false,
@@ -8008,8 +8005,11 @@ fn gen_decorators<'a>(decorators: &[&'a Decorator<'a>], is_inline: bool, context
       force_use_new_lines,
       allow_blank_lines: false,
       separator: Separator::none(),
-      single_line_space_at_start: false,
-      single_line_space_at_end: is_inline,
+      single_line_options: ir_helpers::SingleLineOptions {
+        space_at_start: false,
+        space_at_end: is_inline,
+        separator: Signal::SpaceOrNewLine.into(),
+      },
       custom_single_line_separator: None,
       multi_line_options: ir_helpers::MultiLineOptions::same_line_no_indent(),
       force_possible_newline_at_start: false,
@@ -9121,9 +9121,11 @@ fn gen_surrounded_by_tokens<'a>(
                   prefer_hanging: false,
                   force_use_new_lines: !is_single_line,
                   allow_blank_lines: true,
-                  single_line_space_at_start: opts.single_line_space_around,
-                  single_line_space_at_end: opts.single_line_space_around,
-                  single_line_separator: Signal::SpaceOrNewLine.into(),
+                  single_line_options: if opts.single_line_space_around {
+                    ir_helpers::SingleLineOptions::surrounded_line()
+                  } else {
+                    ir_helpers::SingleLineOptions::same_line_maybe_space_separated()
+                  },
                   indent_width,
                   multi_line_options: ir_helpers::MultiLineOptions::surround_newlines_indented(),
                   force_possible_newline_at_start: false,
