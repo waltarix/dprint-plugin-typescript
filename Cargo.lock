@@ -104,7 +104,7 @@ dependencies = [
  "encode_unicode",
  "lazy_static",
  "libc",
- "unicode-width 0.1.13",
+ "unicode-width 0.1.14",
  "windows-sys",
 ]
 
@@ -996,7 +996,7 @@ dependencies = [
  "swc_eq_ignore_macros",
  "swc_visit",
  "tracing",
- "unicode-width 0.1.13",
+ "unicode-width 0.1.14",
  "url",
 ]
 
@@ -1236,15 +1236,13 @@ checksum = "3354b9ac3fae1ff6755cb6db53683adb661634f67557942dea4facebec0fee4b"
 
 [[package]]
 name = "unicode-width"
-version = "0.1.13"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0336d538f7abc86d282a4189614dfaa90810dfc2c6f6427eaf88e16311dd225d"
+version = "0.1.14"
+source = "git+https://github.com/waltarix/unicode-width?tag=v0.1.14-custom#78d46d6758ef65310e7f3d25714fbf7be9fed660"
 
 [[package]]
 name = "unicode-width"
 version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1fc81956842c57dac11422a97c3b8195a1ff727f06e85c84ed2e8aa277c9a0fd"
+source = "git+https://github.com/waltarix/unicode-width?tag=v0.2.0-custom-r1#218767c448c952bec29a8f1f761157328c3d51c6"
 
 [[package]]
 name = "url"
