@@ -19,6 +19,8 @@ lto = true
 debug-assertions = false
 overflow-checks = false
 panic = "abort"
+strip = true
+codegen-units = 1
 
 [features]
 wasm = ["serde_json", "dprint-core/wasm"]
@@ -32,7 +34,7 @@ harness = false
 [dependencies]
 anyhow = "1.0.64"
 deno_ast = { version = "0.40.0", features = ["view"] }
-dprint-core = { version = "0.66.2", features = ["formatting"] }
+dprint-core = { git = "https://github.com/waltarix/dprint", tag = "core/0.66.2", features = ["formatting"] }
 dprint-core-macros = "0.1.0"
 # temp until https://github.com/swc-project/swc/issues/9290 is fixed
 dprint-swc-ext = "0.17.1"

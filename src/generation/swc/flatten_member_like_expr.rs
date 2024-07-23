@@ -10,6 +10,7 @@ use crate::generation::generate_types::CallOrOptCallExpr;
 use super::super::node_helpers;
 
 pub struct FlattenedMemberLikeExpr<'a> {
+  #[allow(dead_code)]
   pub node: Node<'a>,
 
   pub nodes: Vec<MemberLikeExprItem<'a>>,
